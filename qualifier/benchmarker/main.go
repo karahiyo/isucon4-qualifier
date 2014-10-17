@@ -82,6 +82,12 @@ func init() {
 					Usage:  "Bench Endpoint host",
 					EnvVar: "ISUCON4_BENCH_HOST",
 				},
+                cli.StringFlag{
+                    Name:   "instance_type",
+                    Value:  "local",
+                    Usage:  "Run benchmark in an environment with aws or another - aws,sakura-VPS,ConoHa,etc..",
+                    EnvVar: "ISUCON4_BENCH_INSTANCE_TYPE",
+                },
 			},
 			Action: benchmark,
 		},
@@ -96,7 +102,9 @@ func main() {
 }
 
 func benchmark(c *cli.Context) {
-	checkInstanceMetadata()
+    if c.String("instance_type") == "aws" {
+        checkInstanceMetadata()
+    }
 
 	logger.Print("type:info\tmessage:launch benchmarker")
 

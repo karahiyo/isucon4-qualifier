@@ -14,6 +14,8 @@ ifeq ($(filter true false,${debugmode}),)
   $(error debugmode should be true or false)
 endif
 
+install:
+	gondler install
 
 test:
 	gondler test -v ./...
@@ -41,5 +43,8 @@ release: benchmarker
 	@echo -n '* '
 	@tput sgr0
 	@echo "Built for release."
+
+run:
+	./benchmarker bench
 
 .PHONEY: test release deps
